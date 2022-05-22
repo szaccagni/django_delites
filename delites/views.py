@@ -1,6 +1,5 @@
 from django.shortcuts import redirect, render
 from .models import Menu_Item,Ingredient,Sale,Recipe_Requirement
-from django.views.generic import ListView
 from django.db.models import ProtectedError, Sum
 from django.db import IntegrityError
 from datetime import date, timedelta
@@ -8,7 +7,6 @@ from django.contrib.auth import login,authenticate,logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
-
 
 
 # Create your views here.
