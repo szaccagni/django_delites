@@ -12,6 +12,15 @@ from django.contrib.auth.models import User
 
 
 # Create your views here.
+
+def verify_login(func):
+    def logged_in(request):
+        if request.user.is_authenticated:
+            return func(request)
+        else:
+            return redirect('login')
+    return logged_in
+
 def index(request):
     if request.user.is_authenticated:
         today = str(date.today())
@@ -59,6 +68,7 @@ def register(request):
     else:
         return render(request, "delites/register.html")
 
+
 def login_view(request):
     if request.method == "POST":
         # Attempt to sign user in
@@ -76,9 +86,11 @@ def login_view(request):
     else:
         return render(request, "delites/login.html")
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
 
 def popThisWeek(sales):
     menu_items = [item.item_name for item in Menu_Item.objects.all()]
@@ -92,14 +104,20 @@ def popThisWeek(sales):
     return max_item
     
 
-class MenuList(ListView):
-    model = Menu_Item
-    template_name = "delites/cur_menu.html"
+@verify_login
+def curMenu(request):
+    menu_items = Menu_Item.objects.all()
+    return render(request,'delites/cur_menu.html', {
+        'menu_items':menu_items
+    })
 
 
+@verify_login
 def NewMenuItem(request):
     return render(request,'delites/new_menu_item.html')
 
+
+@verify_login
 def removeMenuItem(request):
     item_name = request.GET.get('item')
     menu_item = Menu_Item.objects.get(item_name=item_name)
@@ -107,6 +125,7 @@ def removeMenuItem(request):
     return redirect('curMenu')
     
 
+@verify_login
 def NewRecipe(request):
     all_ingredients = Ingredient.objects.all()
     if request.method == "POST":
@@ -133,6 +152,7 @@ def NewRecipe(request):
     })
 
 
+@verify_login
 def addIngredient(request):
     # grab variables
     ingredient_name = request.POST['ingredient']
@@ -154,6 +174,7 @@ def addIngredient(request):
         return NewRecipe(request)
 
 
+@verify_login
 def removeRequirement(request):
     # grab variables
     ingredient_name = request.GET.get('remove')
@@ -182,16 +203,19 @@ def removeRequirement(request):
         })
 
 
+@verify_login
 def newSale(request):
     items = Menu_Item.objects.all()
     return render(request, 'delites/new_sale.html', {
         'items' : items
     })
 
+
 class sale_item:
     def __init__(self, name, price):
         self.name = name
         self.price = price
+
 
 def make_sale_items(items):
     sales_items = items.split(",")
@@ -206,6 +230,8 @@ def make_sale_items(items):
         list.append(new_sale_item)
     return list, total
 
+
+@verify_login
 def addToSale(request):
     items = Menu_Item.objects.all()
     item = request.POST['item']
@@ -221,6 +247,8 @@ def addToSale(request):
         'total' : total
     })
 
+
+@verify_login
 def finalizeSale(request):
     items_str = request.POST['items_str'] 
     sales_items = items_str.split(",")
@@ -231,6 +259,8 @@ def finalizeSale(request):
         new_Sale.save()
     return redirect('salesHistory')
 
+
+@verify_login
 def salesHistory(request):
     sales = Sale.objects.all()
     return render(request, 'delites/sales_history.html', {
@@ -238,6 +268,8 @@ def salesHistory(request):
         'timeframe' : 'all'
     })
 
+
+@verify_login
 def filterSalesHistory(request):
     filter = request.POST['time_filter']
     if filter == 'all':
@@ -258,6 +290,7 @@ def filterSalesHistory(request):
     })
 
 
+@verify_login
 def addInventory(request):
     if request.method == 'POST': 
         ingredient_name = request.POST['ingredient_name']
@@ -287,6 +320,8 @@ def addInventory(request):
     else :
         return render(request, "delites/new_inventory_item.html")
 
+
+@verify_login
 def editInventory(request):
     if request.method == 'POST':
         ingredient_name_o = request.POST['original_name']
@@ -325,6 +360,7 @@ def editInventory(request):
             'measure' : inventory.unit_of_measure,
         })
 
+@verify_login
 def deleteInventory(request):
     inventory_name = request.GET.get('inventory')
     inventory = Ingredient.objects.get(ingredient_name=inventory_name)
@@ -339,6 +375,7 @@ def deleteInventory(request):
     return redirect('curInventory')
     
 
+@verify_login
 def curInventory(request):
     inventory = Ingredient.objects.all()
     return render(request, 'delites/cur_inventory.html', {
@@ -346,6 +383,7 @@ def curInventory(request):
     })
 
 
+@verify_login
 def getFinancials(request):
     revenue = Sale.objects.aggregate(Sum('sale_amount'))['sale_amount__sum']
     cost = Ingredient.objects.aggregate(Sum('item_cost'))['item_cost__sum']
@@ -357,6 +395,3 @@ def getFinancials(request):
         'cost' : cost,
         'profits' : profits
     })
-
-
-
