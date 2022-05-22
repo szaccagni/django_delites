@@ -1,0 +1,12 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h2>Financials</h2>
+
+<div class="financials">
+    <div class="financials_line"><b>revenue:</b> ${{revenue}}</div>
+    <div class="financials_line"><b>cost:</b> ${{cost}}</div>
+    <div class="financials_line {% if profits < 0 %} red {% else %} green {% endif %}"><b>profits:</b> ${{profits}}</div>
+</div>
+{% endblock%}

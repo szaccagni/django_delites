@@ -1,0 +1,34 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h2>Sales</h2>
+
+<form action="{% url 'filterSalesHistory' %}" method="POST" style="margin-bottom:20px;">
+    {% csrf_token %}
+    <select id="time_filter" name="time_filter" style="margin-right:10px;">
+        {% if timeframe == 'all' %} <option value="all" selected>all time</option>{% else %}<option value="all">all time</option>{% endif %}
+        {% if timeframe == 'today' %} <option value="today" selected>today</option>{% else %}<option value="today">today</option>{% endif %}
+        {% if timeframe == '7' %}<option value="7" selected>last 7 days</option>{% else %}<option value="7">last 7 days</option>{% endif %}
+        {% if timeframe == '30' %}<option value="30" selected>last 30 days</option>{% else %}<option value="30">last 30 days</option>{% endif %}
+        {% if timeframe == '365' %}<option value="365" selected>last 365 days</option>{% else %}<option value="365">last 365 days</option>{% endif %}
+    </select>
+    <input type="submit" value="filter sales">
+</form>
+
+<table class="cur_table">
+    <tr>
+        <th>Date / Time Sale</th>
+        <th>Item Sold</th>
+        <th>Sale Amount</th>
+    </tr>
+    {% for sale in sales %}
+    <tr>
+        <td>{{sale.dt_sold}}</td>
+        <td>{{sale.item_sold}}</td>
+        <td>{{sale.sale_amount}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock%}

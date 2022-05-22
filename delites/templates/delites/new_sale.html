@@ -1,0 +1,45 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h1>New Sale</h1>
+
+<form action="{% url 'addToSale' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" id="items_str" name="items_str" value="{{items_str}}">
+    <select id="item" name="item">
+        {% for item in items %}
+        <option value="{{item}}">{{item}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="add item to sale"> 
+</form>
+
+{% if sale_items %}
+<table class="sale_ticket">
+    <tr>
+        <th>item</th>
+        <th>price</th>
+    </tr>
+    {% for sale in sale_items %}
+    <tr>
+        <td style="text-align: right; padding-right:20px;">{{sale.name}}</td>
+        <td>{{sale.price}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td style="text-align: right; padding-right:20px; font-weight: bold;">total</td>
+        <td>{{total}}</td>
+    </tr>
+</table>
+<form action="finalizeSale" method="POST" class="sale_ticket_button">
+    {% csrf_token %}
+    <input type="hidden" id="items_str" name="items_str" value="{{items_str}}">
+    <input type="submit" value="finalize sale">
+</form>
+<form action="new_sale" method="POST"  class="sale_ticket_button">
+    {% csrf_token %}
+    <input type="submit" value="start over">
+</form>
+{% endif %}
+{% endblock%}

@@ -1,0 +1,43 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h2>Recipe: {{recipe_name}}</h2>
+
+<div class="error_red">{{error}}</div>
+
+<div class="recipe_card">
+    <div class="add_ingredient">
+        <form action="{% url 'addIngredient' %}" method="POST">
+            {% csrf_token %}
+            <div class="form_container">
+                <div class="form_line">
+                    <label for="ingredient">Ingredient: </label>
+                    <select name="ingredient" id="ingredient">
+                        <option selected disabled hidden>Select an Option</option>
+                    {% for ingredient in ingredients %}
+                        <option value="{{ingredient.ingredient_name}}">{{ingredient}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form_line">
+                    <label for="quant">Quantity</label>
+                    <input type="number" id="quant" name="quant" step=".01">
+                </div>
+                <input type="hidden" id="menu_item" name="menu_item" value="{{recipe_name}}">
+                <input type="submit" value="add ingredient">
+            </div>
+        </form>
+    </div>
+    <div class="recipe_create">
+        <h3>Recipe</h3>
+        <ul class="no-bullets">
+            {% for requirement in requirements %}
+            <li><a href="{% url 'removeRequirement' %}?item={{recipe_name}}&remove={{requirement.ingredient.ingredient_name}}">-</a>{{requirement}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% endblock%}

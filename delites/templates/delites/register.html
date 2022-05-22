@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Delights</title>
+    <link href="{% static 'delites/styles.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block script %}
+    {% endblock %}
+</head>
+<body>
+    <h1>Django Delights</h1>
+
+
+    <h2>Register</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="form_container">
+            <div class="form_line">
+                <input autofocus type="text" name="first_name" placeholder="First Name">
+            </div>
+            <div class="form_line">
+                <input autofocus type="text" name="last_name" placeholder="Last Name">
+            </div>
+            <div class="form_line">
+                <input autofocus type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form_line">
+                <input type="email" name="email" placeholder="Email Address">
+            </div>
+            <div class="form_line">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form_line">
+                <input type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <div class="form_line">
+                <input type="submit" value="Register">
+            </div>
+        </div>
+    </form>
+
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+</body>
+</html>

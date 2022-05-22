@@ -1,0 +1,194 @@
+body {
+    margin:50px 100px;
+}
+
+.nav-bar {
+    overflow: hidden;
+    background-color: rgb(225, 225, 167);
+}
+
+.nav-item {
+    float: left;
+    padding: 10px;
+    margin: 5px 10px 5px 0px;
+}
+
+.nav-item:hover {
+    background-color: rgb(142, 203, 235);
+    cursor: pointer;
+}
+
+.nav-bar a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown-label {
+    padding: 10px;
+    margin: 5px 10px 5px 0px;
+}
+
+.dropdown-label:hover {
+    background-color: rgb(142, 203, 235);
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display:none;
+    position: absolute;
+    float: none;
+    background-color: #f9f9f9;
+}
+
+.dropdown-content a {
+    padding: 10px 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.content {
+    margin: 30px 0px;
+}
+
+.content-item {
+    padding: 10px 0px;
+}
+
+.cur_table td {
+    padding:20px;
+}
+
+.cur_table th {
+    padding: 10px;
+}
+
+.cur_table th {
+    background-color: rgba(142, 203, 235,.5);
+}
+
+.cur_table a {
+    margin: 3px 10px 3px 0px;
+    padding:3px 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid rgba( 0, 0, 0, .5);
+    text-decoration: none;
+    font-size: 12px;
+    color: black;
+}
+
+.cur_table a:hover {
+    margin: 3px 10px 3px 0px;
+    cursor: pointer;
+    padding:3px 10px;
+    background-color: rgba(145, 142, 142, 0.65) !important;
+}
+
+.recipe_card {
+    border: 1px solid;
+    width: 100%;
+    display:flex;
+}
+
+.add_ingredient {
+    margin: 10px auto;
+    width:40%;
+}
+
+.form_container {
+    display:block;
+}
+
+.form_line {
+    margin: 20px 0px;
+}
+
+.form_error p {
+    color: red;
+    font-weight: bold;
+}
+
+.recipe_create {
+    width:50%;
+    margin: 10px 0px;
+}
+
+ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+
+}
+.no-bullets li {
+    padding:3px 10px 3px 0px;
+    margin-bottom: 10px;
+}
+
+.no-bullets a {
+    margin: 3px 10px 3px 0px;
+    padding:3px 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid rgba( 0, 0, 0, .5);
+    text-decoration: none;
+}
+
+.no-bullets a:hover {
+    margin: 3px 10px 3px 0px;
+    cursor: pointer;
+    padding:3px 10px;
+    background-color: rgba(227, 91, 91, 0.65) !important;
+}
+
+.error_red { 
+    background-color: rgba(238, 141, 106, 0.75);
+    padding-left:15px;
+    margin: 15px 0px;
+    font-size: 24px;
+}
+
+.sale_ticket {
+    border: 1px solid;
+    margin: 20px 0px;
+    padding: 10px;
+    border-collapse: collapse;
+    width: 40%;
+}
+
+.sale_ticket th, .sale_ticket td {
+    border: 1px solid;
+    padding: 10px;
+}
+
+.sale_ticket_button {
+    margin: 20px 0px;
+}
+
+.financials {
+    display:block;
+}
+
+.financials_line {
+    margin:20px 0px;
+    padding:10px
+}
+
+.red {
+    background-color: rgba(227, 33, 33, 0.5);
+}
+
+.green {
+    background-color: rgba(14, 118, 43, 0.5);
+}

@@ -1,0 +1,28 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h2>Current Inventory</h2>
+
+<div class="error_red">{{error}}</div>
+
+<table class="cur_table">
+    <tr>
+        <th>Ingredient</th>
+        <th>Price Per Unit</th>
+        <th>Quantity Available</th>
+        <th>Edit</th>
+        <th>Remove</th>
+    </tr>
+    {% for ingredient in ingredients %}
+    <tr>
+        <td>{{ingredient}}</td>
+        <td>{{ingredient.unit_price}}</td>
+        <td>{{ingredient.quantity_availble}}</td>
+        <td><a href="{% url 'editInventory' %}?inventory={{ingredient.ingredient_name}}">Inventory Item Details</a></td>
+        <td><a href="{% url 'deleteInventory' %}?inventory={{ingredient.ingredient_name}}">byebye</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock%}

@@ -1,0 +1,42 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h2>New Ingredient</h2>
+
+<form action="{% url 'addInventory' %}" method="POST">
+    {% csrf_token %}
+    <div class="form_container">
+        <div class="form_line">
+            <label for="ingredient_name">Ingredient Name: </label>
+            <input type="text" id="ingredient_name" name="ingredient_name" value="{{item}}" required>
+        </div>
+        <div class="form_line">
+            <label for="quantity_availble">Quantity Availble: </label>
+            <input type="number" id="quantity_availble" name="quantity_availble" value="{{quant}}" step=".01" required>
+        </div>
+        <div class="form_line">
+            <label for="unit_price">Price Per Unit: </label>
+            <input type="number" id="unit_price" name="unit_price" value="{{price}}"  step=".01" required>
+        </div>
+        <div class="form_line">
+            <label for="unit_of_measure">Unit of Measure: </label>
+            <select name="unit_of_measure" id="unit_of_measure" required>
+                {% if not measure %}
+                <option selected disabled hidden>Select an Option</option>
+                {% endif %}
+                {% if measure == 'g' %} <option selected value="g">grams</option> {% else %} <option value="g">grams</option> {% endif %}
+                {% if measure == 'oz' %} <option selected value="oz">ounces</option> {% else %} <option value="oz">ounces</option> {% endif %}
+                {% if measure == 'wh' %} <option selected value="wh">whole units</option> {% else %} <option value="wh">whole units</option> {% endif %}
+            </select>
+        </div>
+        <div class="form_line form_error">
+            <p>{{error}}</p>
+        </div>
+        <div class="form_line">
+            <input type="submit" value="add ingredient">            
+        </div>
+    </div>
+</form>
+
+{% endblock%}

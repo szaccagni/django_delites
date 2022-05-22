@@ -1,0 +1,30 @@
+{% extends 'delites/layout.html' %}
+
+{% block content %}
+
+<h2>Current Menu</h2>
+
+<table class="cur_table">
+    <tr>
+        <th>Cost</th>
+        <th>Menu Item</th>
+        <th>Ingredients</th>
+        <th>Update Recipe</th>
+        <th>Remove Item</th>
+    </tr>
+    {% for item in menu_item_list %}
+    <tr>
+        <td>{{item.item_price}}</td>
+        <td>{{item}}</td>
+        <td>
+        {% for ingredient in item.ingredients.all %}
+            {{ingredient.ingredient_name}},
+        {% endfor %}
+        </td>
+        <td><a href="{% url 'newRecipe' %}?item={{item.item_name}}">Recipe Details</a></td>
+        <td><a href="{% url 'removeMenuItem' %}?item={{item.item_name}}">byebye</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock%}

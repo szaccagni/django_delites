@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Delights</title>
+    <link href="{% static 'delites/styles.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block script %}
+    {% endblock %}
+</head>
+<body>
+    <div style="display:flex">
+        <h1>Django Delights</h1>
+        <h4 style="align-self: flex-end; margin-left:auto; margin-right:5px;">welcome, {{user}}</h4>
+    </div>
+    <div class="nav-bar">
+        <div>
+            <div class="nav-item"><a href="{% url 'index' %}">home</a></div>
+            <div class="dropdown">
+                <div class="dropdown-label">menu
+                    <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="dropdown-content">
+                    <a href="{% url 'newMenuItem' %}">new menu item</a>
+                    <a href="{% url 'curMenu' %}">current menu</a>
+                </div>
+            </div>
+            <div class="nav-item"><a href="{% url 'newSale' %}">new sale</a></div>
+            <div class="nav-item"><a href="{% url 'salesHistory' %}">sales history</a></div>
+            <div class="dropdown">
+                <div class="dropdown-label">ingredients
+                    <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="dropdown-content">
+                    <a href="{% url 'addInventory' %}">new ingredient</a>
+                    <a href="{% url 'curInventory' %}">current ingredient inventory</a>
+                </div>
+            </div>
+            <div class="nav-item"><a href="{% url 'getFinancials' %}">financials</a></div>
+        </div>
+        <div>
+            <div class="nav-item" style="float:right"><a href="{% url 'logout' %}">logout</a></div>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
